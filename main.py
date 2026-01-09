@@ -195,14 +195,24 @@ async def proxy(path: str, request: Request):
             model = filtered_body.get('model', '')
             if 'anyrouter/' in model:
                 filtered_body['model'] = model.replace('anyrouter/', '')
-            if ('sonnet' in model.lower() or 'opus' in model.lower()) and CLAUDE_CODE_TOOLS:
-                if 'tools' not in filtered_body or not filtered_body['tools']:
-                    filtered_body['tools'] = CLAUDE_CODE_TOOLS
-                if 'system' not in filtered_body or not filtered_body['system']:
-                    if CLAUDE_CODE_SYSTEM:
-                        filtered_body['system'] = CLAUDE_CODE_SYSTEM
-                if 'thinking' not in filtered_body:
-                    filtered_body['thinking'] = {"budget_tokens": 10000, "type": "enabled"}
+            if config['debug']:
+                print(f"[PROXY] Original request keys: {list(body_json.keys())}")
+                print(f"[PROXY] Has tools: {'tools' in body_json}, tools count: {len(body_json.get('tools', []))}")
+                print(f"[PROXY] Has system: {'system' in body_json}")
+                print(f"[PROXY] Has thinking: {'thinking' in body_json}")
+            if ('sonnet' in model.lower() or 'opus' in model.lower() or 'haiku' in model.lower()) and CLAUDE_CODE_TOOLS:
+                filtered_body['tools'] = CLAUDE_CODE_TOOLS
+                if config['debug']:
+                    print(f"[PROXY] Injected {len(CLAUDE_CODE_TOOLS)} Claude Code tools")
+                if CLAUDE_CODE_SYSTEM:
+                    filtered_body['system'] = CLAUDE_CODE_SYSTEM
+                    if config['debug']:
+                        print(f"[PROXY] Injected Claude Code system prompt")
+                if 'sonnet' in model.lower() or 'opus' in model.lower():
+                    if 'thinking' not in filtered_body:
+                        filtered_body['thinking'] = {"budget_tokens": 10000, "type": "enabled"}
+                        if config['debug']:
+                            print(f"[PROXY] Injected thinking config")
                 filtered_body['metadata'] = {"user_id": "proxy_user"}
             wants_stream = filtered_body.get('stream', False)
             body_json = filtered_body
@@ -242,8 +252,10 @@ async def proxy(path: str, request: Request):
                         continue
                     return Response(content=b'{"error":{"message":"Network error after max retries"}}', status_code=502, media_type="application/json")
                 if resp.status_code in [403, 500]:
-                    error_content = await resp.read()
+                    error_content = await resp.aread()
                     await resp.aclose()
+                    if config['debug']:
+                        print(f"[PROXY] Error response: {error_content.decode('utf-8', errors='ignore')[:500]}")
                     return Response(content=error_content, status_code=resp.status_code, media_type="application/json")
                 return StreamingResponse(stream_response(resp), status_code=resp.status_code, media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
             else:
