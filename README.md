@@ -14,7 +14,8 @@ AnyRouter 是一个专为 Claude Code 设计的 API Provider，具有严格的�
 ## 功能特性
 
 *   ✅ **HTTP/2 支持**：使用 `httpx` 绕过 TLS 指纹检测。
-*   ✅ **Header 伪装**：自动注入 `anthropic-client-name: claude-code` 等必要头信息。
+*   ✅ **Header 伪装**：自动注入 Claude Code 的真实 Header（通过 mitmproxy 抓包验证）。
+*   ✅ **工具注入**：对 Sonnet/Opus 模型自动注入 Claude Code 工具定义，绕过服务端检测。
 *   ✅ **Body 清洗**：过滤 OpenCode 可能发送的 OpenAI 专有字段，防止 WAF 拦截。
 *   ✅ **流式透传**：完美支持 SSE (Server-Sent Events) 流式响应，打字机效果流畅。
 *   ✅ **连接保持**：内置连接池和重试机制，应对上游不稳定性。

@@ -10,3 +10,10 @@ venv/
 
 # Logs
 *.log
+
+# Debug/capture files
+capture_claude_code.py
+captured_requests.json
+request_body_*.json
+test_models.py
+main_v22_full.py
